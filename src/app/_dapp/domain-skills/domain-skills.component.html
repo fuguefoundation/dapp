@@ -1,0 +1,98 @@
+<!-- <mat-card>
+    <mat-card-header>                
+        <mat-card-subtitle><h2>Domain and Skills</h2></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <button mat-button  color="primary" (click)="addDomain()" >Add Domain and Create Global Skill</button>
+        <mat-nav-list>
+            <mat-list-item>
+                Domain ID: {{model.domain.id}}
+            </mat-list-item>                     
+            <mat-list-item>
+                Local Skill ID: {{model.domain.localSkillId}}
+            </mat-list-item>     
+            <mat-list-item>
+                Pot ID: {{model.domain.potId}}
+            </mat-list-item>                     
+        </mat-nav-list>
+        <mat-divider></mat-divider>
+        <mat-nav-list>
+            <mat-list-item>
+                Skill ID: {{model.skill.id}}
+            </mat-list-item>                     
+            <mat-list-item>
+                Parent Skill ID: {{model.skill.parentSkillId}}
+            </mat-list-item>     
+            <mat-list-item>
+                Number of Parents: {{model.skill.nParents}}
+            </mat-list-item>                     
+            <mat-list-item>
+                Number of Children: {{model.skill.nChildren}}
+            </mat-list-item>               
+            <mat-list-item>
+                Is Global Skill: {{model.skill.isGlobalSkill}}
+            </mat-list-item>     
+        </mat-nav-list>
+    </mat-card-content>
+</mat-card> -->
+
+<!-- <mat-card>
+    <mat-card-header fxLayoutAlign="center">                
+        <mat-card-subtitle><h2>Add Skill</h2></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form fxLayout="column" fxLayoutAlign="center">
+            <mat-form-field>
+                <input matInput placeholder="Parent Skill ID" #parentId>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="True of False" #isGlobal>
+            </mat-form-field>
+            <button mat-button  color="primary" (click)="addSkill(parentId.value, isGlobal.value)" 
+            >Add Skill</button>
+        </form>                              
+    </mat-card-content>
+</mat-card> -->
+
+<mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile [style.background]="'blue-dark'">
+        <mat-card class="column-card"> 
+            <mat-card-header fxLayoutAlign="center">                
+                <mat-card-subtitle><h2>Select Method</h2></mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <form fxLayout="column" fxLayoutAlign="center">
+                    <mat-select placeholder="Domain and Skills Methods" #domainMethods (selectionChange)="onMethodSelected($event.value)">
+                        <mat-option *ngFor="let method of methods; let i=index" value="{{i}}">{{method.name}}</mat-option>
+                    </mat-select>
+                </form>  
+            </mat-card-content>
+            <div *ngIf="result">
+                <mat-divider></mat-divider>
+                <p>{{result | json}}</p>                
+            </div>
+        </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [style.background]="'blue-dark'">
+        <mat-card *ngIf="methodSelected" class="column-card">
+            <mat-card-header fxLayoutAlign="center">                
+                <mat-card-title>{{methodSelected.name}}</mat-card-title>
+                <mat-card-subtitle>{{methodSelected.docs}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <form fxLayout="column" fxLayoutAlign="center" [formGroup]="domainForm">
+                    <mat-form-field *ngFor="let field of methodSelected.field; let i=index">
+                        <input *ngIf="field.validation != 'boolean'" matInput placeholder="{{field.placeholder}}" formControlName="{{i}}"
+                        name="{{field.id}}">
+                        <mat-select *ngIf="field.validation == 'boolean'" placeholder="Select True or False" formControlName="{{i}}">
+                            <mat-option value="true">TRUE</mat-option>
+                            <mat-option value="false">FALSE</mat-option>
+                        </mat-select> 
+                    </mat-form-field>
+                    <button mat-button  color="primary" (click)="executeMethod(methodSelected.id)" 
+                    >{{methodSelected.name}}</button>
+                </form>                              
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>

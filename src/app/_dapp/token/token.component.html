@@ -1,0 +1,201 @@
+<!-- <mat-card>
+    <mat-card-header>                
+        <mat-card-subtitle><h2>{{model.tokenAddress}}</h2></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <button mat-button  color="primary" (click)="updateTokenDetails()" >Update Token Details</button>
+        <mat-divider></mat-divider><br>
+        <button mat-button  color="primary" (click)="setTokenOwner()" >Set Token Owner</button>
+        <button mat-button  color="primary" (click)="moveFundsBetweenPots()" >Move Funds Between Pots (Colony to Domain)</button>
+        <button mat-button  color="primary" (click)="_moveFundsBetweenPots()" >Move Funds Between Pots (Domain to Task)</button>
+        <mat-divider></mat-divider><br>
+        <button mat-button  color="primary" (click)="claimPayout()" >Claim Payout (Manager)</button>
+        <button mat-button  color="primary" (click)="_claimPayout()" >Claim Payout (Evaluator)</button>
+        <button mat-button  color="primary" (click)="__claimPayout()" >Claim Payout (Worker)</button>
+        <mat-list>
+            <mat-list-item>Owner: {{model.tokenOwner}}</mat-list-item>
+            <mat-list-item>Total supply: {{model.totalSupply.amount}}</mat-list-item>
+            <mat-list-item>Pot Balance: {{model.potBalance.balance}}</mat-list-item>
+            <mat-list-item>Pot Balance After Move Funds (Colony to Domain): {{model.toPotBalanceAfter.balance}}</mat-list-item>
+            <mat-list-item>Pot Balance After Move Funds (Domain to Task): {{model._toPotBalanceAfter.balance}}</mat-list-item>
+        </mat-list>
+    </mat-card-content>
+</mat-card> -->
+
+<!-- <mat-card>
+    <mat-card-header fxLayoutAlign="center center">                
+        <mat-card-subtitle><h2>Basic grid-list</h2></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-grid-list cols="2" rowHeight="2:1">
+            <mat-grid-tile [style.background]="'blue-dark'">
+                <mat-card>
+                    <mat-card-header fxLayoutAlign="center">                
+                        <mat-card-subtitle><h2>Create Token</h2></mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <form fxLayout="column" fxLayoutAlign="center">
+                            <mat-form-field>
+                                <input matInput placeholder="Symbol" #tokenSymbol [formControl]="tokenFormControl" [errorStateMatcher]="matcher">
+                                <mat-error *ngIf="tokenFormControl.hasError('required')">Value is <strong>required</strong></mat-error>
+                            </mat-form-field>
+                            <button mat-button  color="primary" (click)="createToken(tokenSymbol.value)" 
+                            [disabled]="!tokenFormControl.valid">Create Token</button>
+                        </form>                              
+                    </mat-card-content>
+                </mat-card>     
+            </mat-grid-tile>
+            <mat-grid-tile [style.background]="'blue-dark'">
+                <mat-card>
+                    <mat-card-header fxLayoutAlign="center">                
+                        <mat-card-subtitle><h2>Mint Token</h2></mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <form fxLayout="column" fxLayoutAlign="center">
+                            <mat-form-field>
+                                <input matInput placeholder="Amount" #mintAmount
+                                [formControl]="tokenMintFormControl" [errorStateMatcher]="matcher">
+                                <mat-error *ngIf="tokenMintFormControl.hasError('required')">Value is <strong>required</strong></mat-error>
+                            </mat-form-field>
+                            <button mat-button  color="primary" (click)="mintTokens(mintAmount.value)" 
+                            [disabled]="!tokenMintFormControl.valid">Mint Token and Claim Colony Funds</button>
+                        </form>                              
+                    </mat-card-content>
+                </mat-card>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </mat-card-content>
+</mat-card>
+<mat-card>
+    <mat-card-header fxLayoutAlign="center">                
+        <mat-card-subtitle><h2>Get Balance Of <span> {{model.tokenAmount}}</span></h2></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form fxLayout="column" fxLayoutAlign="center">
+            <mat-form-field>
+                <input matInput placeholder="Address" #balanceOf>
+            </mat-form-field>
+            <button mat-button  color="primary" (click)="getBalanceOf(balanceOf.value)" 
+            >Get Balance</button>
+        </form>                              
+    </mat-card-content>
+</mat-card> 
+<mat-card>
+    <mat-card-header fxLayoutAlign="center">                
+        <mat-card-subtitle><h2>Approve Tokens</h2></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form fxLayout="column" fxLayoutAlign="center">
+            <mat-form-field>
+                <input matInput placeholder="Spender Address" #spenderAddr>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Amount" #approveAmount>
+            </mat-form-field>
+            <button mat-button  color="primary" (click)="approve(spenderAddr.value, approveAmount.value)" 
+            >Approve Tokens</button>
+        </form>                              
+    </mat-card-content>
+</mat-card>
+<mat-card>
+    <mat-card-header fxLayoutAlign="center">                
+        <mat-card-subtitle><h2>Transfer Tokens</h2></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form fxLayout="column" fxLayoutAlign="center">
+            <mat-form-field>
+                <input matInput placeholder="Destination Address" #destinationAddr>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Amount" #transferAmount>
+            </mat-form-field>
+            <button mat-button  color="primary" (click)="transfer(destinationAddr.value, transferAmount.value)" 
+            >Transfer Tokens</button>
+        </form>                              
+    </mat-card-content>
+</mat-card>
+<mat-card>
+    <mat-card-header fxLayoutAlign="center">                
+        <mat-card-subtitle><h2>Transfer Tokens From</h2></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form fxLayout="column" fxLayoutAlign="center">
+            <mat-form-field>
+                <input matInput placeholder="Source Address" #sourceFromAddr>
+            </mat-form-field>        
+            <mat-form-field>
+                <input matInput placeholder="Destination Address" #destinationFromAddr>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Amount" #transferFromAmount>
+            </mat-form-field>
+            <button mat-button  color="primary" (click)="transferFrom(sourceFromAddr.value, destinationFromAddr.value, transferFromAmount.value)" 
+            >Transfer Tokens From</button>
+        </form>                              
+    </mat-card-content>
+</mat-card>
+<mat-card>
+    <mat-card-header fxLayoutAlign="center">                
+        <mat-card-subtitle><h2>Get Pot Balance</h2></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form fxLayout="column" fxLayoutAlign="center">
+            <mat-form-field>
+                <input matInput placeholder="Pot ID" #potId>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Token Address" #tokenAddress>
+            </mat-form-field>
+            <button mat-button  color="primary" (click)="getPotBalance(potId.value, tokenAddress.value)" 
+            >Get Pot Balance</button>
+        </form>                              
+    </mat-card-content>
+</mat-card> -->
+<!-- <div fxLayout="row wrap" fxLayoutAlign="center"> 
+    <div fxFlex="100" fxFlex.gt-xs="50" class="p-2"> -->
+<mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile [style.background]="'blue-dark'">
+        <mat-card class="column-card"> 
+            <mat-card-header fxLayoutAlign="center">                
+                <mat-card-subtitle><h2>Select Method</h2></mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <form fxLayout="column" fxLayoutAlign="center">
+                    <mat-select placeholder="Token Methods" #tokenMethods (selectionChange)="onMethodSelected($event.value)">
+                        <mat-option *ngFor="let method of methods; let i=index" value="{{i}}">{{method.name}}</mat-option>
+                    </mat-select>
+                </form>
+                <div *ngIf="result">
+                    <mat-divider></mat-divider>
+                    <p>{{result | json}}</p>                
+                </div>                     
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [style.background]="'blue-dark'">
+    <!-- </div>
+    <div fxFlex="100" fxFlex.gt-xs="50" class="p-2"> -->
+        <mat-card *ngIf="methodSelected" class="column-card">
+            <mat-card-header fxLayoutAlign="center">                
+                <mat-card-title>{{methodSelected.name}}</mat-card-title>
+                <mat-card-subtitle>{{methodSelected.docs}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <form fxLayout="column" fxLayoutAlign="center" [formGroup]="tokenForm">
+                    <mat-form-field *ngFor="let field of methodSelected.field; let i=index">
+                        <input *ngIf="field.validation != 'role'" matInput placeholder="{{field.placeholder}}" formControlName="{{i}}"
+                        name="{{field.id}}">
+                        <mat-select *ngIf="field.validation == 'role'" placeholder="Select Role" formControlName="{{i}}">
+                            <mat-option value="MANAGER">MANAGER</mat-option>
+                            <mat-option value="EVALUATOR">EVALUATOR</mat-option>
+                            <mat-option value="WORKER">WORKER</mat-option>
+                        </mat-select>                        
+                    </mat-form-field>
+                    <button mat-button  color="primary" (click)="executeMethod(methodSelected.id)" 
+                    >{{methodSelected.name}}</button>
+                </form>                              
+            </mat-card-content>
+        </mat-card>
+    <!-- </div> -->
+    </mat-grid-tile>
+</mat-grid-list>

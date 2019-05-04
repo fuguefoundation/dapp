@@ -1,0 +1,123 @@
+<!-- <mat-card>
+    <mat-card-header>                
+        <mat-card-subtitle><h2>Colony Info</h2></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <button mat-button  color="primary" (click)="createColony()" >Create Colony</button>
+        <mat-nav-list>
+            <mat-list-item>
+                <span>Colony Client | ID: {{model.colony.id}} | {{model.colony.address}}</span>
+                <button mat-icon-button>
+                    <mat-icon>info</mat-icon>
+                </button>
+            </mat-list-item>                           
+        </mat-nav-list>
+    </mat-card-content>
+</mat-card> -->
+
+<!-- <mat-card>
+    <mat-card-header>                
+        <mat-card-subtitle><h2>Evaluator Colony Client: {{model.colonyEvaluator}}</h2></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <button mat-button  color="primary" (click)="_getColonyClient()" >Create Evaluator Colony Client</button>
+    </mat-card-content>
+</mat-card>
+<mat-card>
+    <mat-card-header>                
+        <mat-card-subtitle><h2>Worker Colony Client: {{model.colonyWorker}}</h2></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <button mat-button  color="primary" (click)="__getColonyClient()" >Create Worker Colony Client</button>
+    </mat-card-content>
+</mat-card> -->
+
+<!-- <mat-card>
+    <mat-card-header fxLayoutAlign="center">                
+        <mat-card-subtitle><h2>Check User Role {{model.hasUserRole}}</h2></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form fxLayout="column" fxLayoutAlign="center">
+            <mat-form-field>
+                <input matInput placeholder="User Address" #userAddr>
+            </mat-form-field>
+            <mat-select placeholder="Colony Role" #userRole>
+                <mat-option value="FOUNDER">FOUNDER</mat-option>
+                <mat-option value="ADMIN">ADMIN</mat-option>
+            </mat-select> 
+            <button mat-button  color="primary" (click)="hasUserRole(userAddr.value, userRole.value)" 
+            >Check Role</button>
+        </form>                              
+    </mat-card-content>
+</mat-card>
+<mat-card>
+    <mat-card-header fxLayoutAlign="center">                
+        <mat-card-subtitle><h2>Set Admin Role</h2></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form fxLayout="column" fxLayoutAlign="center">
+            <mat-form-field>
+                <input matInput placeholder="User Address" #userAdminAddr>
+            </mat-form-field>
+            <button mat-button  color="primary" (click)="setAdminRole(userAdminAddr.value)" 
+            >Set Admin Role</button>
+        </form>                              
+    </mat-card-content>
+</mat-card> 
+<mat-card>
+    <mat-card-header fxLayoutAlign="center">                
+        <mat-card-subtitle><h2>Send Ether {{model.sendEther}}</h2></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form fxLayout="column" fxLayoutAlign="center">
+            <mat-form-field>
+                <input matInput placeholder="Amount" #sendEtherAmount>
+            </mat-form-field>
+            <button mat-button  color="primary" (click)="sendEther(sendEtherAmount.value)" 
+            >Send Ether</button>
+        </form>                              
+    </mat-card-content>
+</mat-card>     -->
+
+<mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile [style.background]="'blue-dark'">
+        <mat-card class="column-card"> 
+            <mat-card-header fxLayoutAlign="center">                
+                <mat-card-subtitle><h2>Select Method</h2></mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <form fxLayout="column" fxLayoutAlign="center">
+                    <mat-select placeholder="Colony Methods" #colonyMethods (selectionChange)="onMethodSelected($event.value)">
+                        <mat-option *ngFor="let method of methods; let i=index" value="{{i}}">{{method.name}}</mat-option>
+                    </mat-select>
+                </form>       
+                <div *ngIf="result">
+                    <mat-divider></mat-divider>
+                    <p>{{result | json}}</p>                
+                </div>                       
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [style.background]="'blue-dark'">
+        <mat-card *ngIf="methodSelected" class="column-card">
+            <mat-card-header fxLayoutAlign="center">                
+                <mat-card-title>{{methodSelected.name}}</mat-card-title>
+                <mat-card-subtitle>{{methodSelected.docs}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <form fxLayout="column" fxLayoutAlign="center" [formGroup]="colonyForm">
+                    <mat-form-field *ngFor="let field of methodSelected.field; let i=index">
+                        <input matInput placeholder="{{field.placeholder}}" formControlName="{{i}}"
+                        name="{{field.id}}">
+                        <mat-select *ngIf="field.validation == 'role'" placeholder="Select Role" formControlName="{{i}}">
+                            <mat-option value="FOUNDER">FOUNDER</mat-option>
+                            <mat-option value="ADMIN">ADMIN</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <button mat-button  color="primary" (click)="executeMethod(methodSelected.id)" 
+                    >{{methodSelected.name}}</button>
+                </form>                              
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>

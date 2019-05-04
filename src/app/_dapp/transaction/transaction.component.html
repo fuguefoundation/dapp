@@ -1,0 +1,24 @@
+<div *ngIf="txs.length">
+    <mat-card-content *ngFor='let tx of txs; index as i;'>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>{{txNames[i]}}</mat-panel-title>
+                <mat-panel-description>{{tx.transactionHash}}</mat-panel-description>
+            </mat-expansion-panel-header>
+            <p><a href="https://ropsten.etherscan.io/tx/{{tx.transactionHash}}" target="_blank">View on Etherscan</a></p>
+            <mat-list>
+                <mat-list-item>Block Hash: {{tx.blockHash}}</mat-list-item>
+                <mat-list-item>Block Number: {{tx.blockNumber}}</mat-list-item>
+                <mat-list-item>Byzantium: {{tx.byzantium}}</mat-list-item>
+                <mat-list-item>Contract Address: {{tx.contractAddress}}</mat-list-item>
+                <mat-list-item>Cumulative Gas Used: {{tx.cumulativeGasUsed.toNumber()}}</mat-list-item>
+                <mat-list-item>Gas Used: {{tx.gasUsed.toNumber()}}</mat-list-item>
+                <mat-list-item>Logs: {{tx.logs}}</mat-list-item>
+                <mat-list-item>Log Blooms: {{tx.logsBloom}}</mat-list-item>
+                <mat-list-item>Status: {{tx.status}}</mat-list-item>
+                <mat-list-item>Transaction Hash: {{tx.transactionHash}}</mat-list-item>
+                <mat-list-item>Transaction Index: {{tx.transactionIndex}}</mat-list-item>
+            </mat-list>                        
+        </mat-expansion-panel>
+    </mat-card-content>
+</div>

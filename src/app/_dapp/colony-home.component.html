@@ -1,0 +1,55 @@
+<app-content-header 
+    [icon]="'public'" 
+    [title]="'Fugue Foundation'" 
+    [desc]="'Do more'"
+    [hideBreadcrumb]="false"
+    [hasBgImage]="true" 
+    [class]="'pb-4'"></app-content-header>
+
+<div fxLayout="row wrap" *ngIf="!showComponents">
+    <div fxFlex="50" fxFlex.md="50" fxFlex.sm="100" class="p-2">
+        <mat-card fxLayout="row" fxLayoutAlign="start center" class="p-1 gradient-indigo team-member">
+            <img src="assets/img/ff/logo_150.png" alt="FF" class="mat-elevation-z3">        
+            <div fxLayout="column" fxLayoutAlign="center center" class="w-100">
+                <h3>Metamask</h3>
+                <p class="mt-1">Connect to the colony with your browser extension</p>
+                <a (click)="connectNetworkRinkeby('metamask')" mat-icon-button>
+                    <mat-icon>exit_to_app</mat-icon>
+                </a>
+            </div>
+        </mat-card>
+    </div>
+    <div fxFlex="50" fxFlex.md="50" fxFlex.sm="100" class="p-2">
+        <mat-card fxLayout="row" fxLayoutAlign="start center" class="p-1 gradient-green team-member">
+            <img src="assets/img/ff/logo_150.png" alt="FF" class="mat-elevation-z3">        
+            <div fxLayout="column" fxLayoutAlign="center center" class="w-100">
+                <h3>Trezor</h3>
+                <p class="mt-1">Use your hardware wallet</p>
+                <p class="mt-1">Ensure you enable popups and install Trezor Bridge</p>
+                <a (click)="connectNetworkRinkeby('trezor')" mat-icon-button>
+                    <mat-icon>exit_to_app</mat-icon>
+                </a>
+            </div>
+        </mat-card>
+    </div>
+</div>
+
+<div class="colony-interaction" *ngIf="showComponents">
+    <mat-card>           
+        <mat-grid-list cols="5" rowHeight="1:1">
+            <mat-grid-tile *ngFor="let section of sections; let i of index">
+                <button mat-button (click)="onSectionSelected(section.id)">
+                    <mat-icon class="{{section.color}} mat-icon material-icons">{{section.icon}}</mat-icon>
+                    <span>{{section.name}}</span>
+                </button>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </mat-card>
+</div>
+
+<app-network *ngIf="cSelected == 'network'"></app-network>
+<app-token *ngIf="cSelected == 'token'"></app-token>
+<app-colony-client *ngIf="cSelected == 'colony'"></app-colony-client>
+<app-domain-skills *ngIf="cSelected == 'domain'"></app-domain-skills>
+<app-tasks *ngIf="cSelected == 'task'"></app-tasks>
+<app-tx *ngIf="cSelected == 'tx'"></app-tx>

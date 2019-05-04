@@ -1,0 +1,143 @@
+    <!-- <div fxLayout="row wrap">
+        <div fxFlex="50" fxFlex.md="50" fxFlex.sm="100" class="p-2" *ngFor="let account of accounts">
+            <mat-card fxLayout="row" fxLayoutAlign="start center" class="p-1 gradient-indigo team-member">
+                <img src="assets/img/ff/logo_150.png" alt="FF" class="mat-elevation-z3">        
+                <div fxLayout="column" fxLayoutAlign="center center" class="w-100">
+                    <h3>Account</h3>
+                    <p class="mt-1">{{account}}</p>
+                    <a routerLink="." mat-icon-button>
+                        <mat-icon>exit_to_app</mat-icon>
+                    </a>
+                </div>
+            </mat-card>
+        </div>
+    </div> -->
+    <!-- <mat-card>
+        <button mat-button  color="primary" (click)="getAccounts()">Get Accounts</button>
+        <button mat-button  color="primary" (click)="getMetaColonyClient()">Get Meta Colony Client</button>
+        <mat-card-header>                
+            <mat-card-subtitle><h2>Network Client</h2></mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-nav-list>                            
+                <mat-list-item>
+                    <span>Network Client: {{model.networkAddr}}</span>
+                    <button mat-icon-button>
+                        <mat-icon>info</mat-icon>
+                    </button>
+                </mat-list-item>
+                <mat-list>
+                    <mat-list-item>
+                        <h3 matLine>Contract signer:
+                            {{model.networkSignerAddr}}</h3>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <h3 matLine>Provider: {{model.networkProvider}}</h3>
+                    </mat-list-item>
+                </mat-list>                             
+            </mat-nav-list>
+        </mat-card-content>
+    </mat-card>  -->
+
+    <!-- <mat-card>
+        <button mat-button  color="primary" (click)="_connectNetwork()">Create Evaluator Network Client</button>
+        <mat-card-header>                
+            <mat-card-subtitle><h2>Evaluator Network Client</h2></mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-nav-list>                            
+                <mat-list-item>
+                    <span>Network Client: {{modelEval.networkAddr}}</span>
+                    <button mat-icon-button>
+                        <mat-icon>info</mat-icon>
+                    </button>
+                </mat-list-item>
+                <mat-list>
+                    <mat-list-item>
+                        <h3 matLine>Contract signer:
+                            {{modelEval.networkSignerAddr}}</h3>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <h3 matLine>Provider: {{modelEval.networkProvider}}</h3>
+                    </mat-list-item>
+                </mat-list>                             
+            </mat-nav-list>
+        </mat-card-content>
+    </mat-card> 
+
+    <mat-card>
+        <button mat-button  color="primary" (click)="__connectNetwork()">Create Worker Network Client</button>
+        <mat-card-header>                
+            <mat-card-subtitle><h2>Worker Network Client</h2></mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-nav-list>                            
+                <mat-list-item>
+                    <span>Network Client: {{modelWorker.networkAddr}}</span>
+                    <button mat-icon-button>
+                        <mat-icon>info</mat-icon>
+                    </button>
+                </mat-list-item>
+                <mat-list>
+                    <mat-list-item>
+                        <h3 matLine>Contract signer:
+                            {{modelWorker.networkSignerAddr}}</h3>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <h3 matLine>Provider: {{modelWorker.networkProvider}}</h3>
+                    </mat-list-item>
+                </mat-list>                             
+            </mat-nav-list>
+        </mat-card-content>
+    </mat-card>  -->
+    <mat-grid-list cols="2" rowHeight="2:1">
+        <mat-grid-tile [style.background]="'blue-dark'">
+            <mat-card class="column-card"> 
+                <mat-card-header fxLayoutAlign="center">                
+                    <mat-card-subtitle><h2>Select Method</h2></mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <form fxLayout="column" fxLayoutAlign="center">
+                        <mat-select placeholder="Network Methods" #networkMethods (selectionChange)="onMethodSelected($event.value)">
+                            <mat-option *ngFor="let method of methods; let i=index" value="{{i}}">{{method.name}}</mat-option>
+                        </mat-select>
+                    </form>
+                    <div *ngIf="result">
+                        <mat-divider></mat-divider>
+                        <p>{{result | json}}</p>                
+                    </div>                      
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile [style.background]="'blue-dark'">
+            <mat-card *ngIf="methodSelected" class="column-card">
+                <mat-card-header fxLayoutAlign="center">                
+                    <mat-card-title>{{methodSelected.name}}</mat-card-title>
+                    <mat-card-subtitle>{{methodSelected.docs}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <form fxLayout="column" fxLayoutAlign="center" [formGroup]="networkForm">
+                        <mat-form-field *ngFor="let field of methodSelected.field; let i=index">
+                            <input matInput placeholder="{{field.placeholder}}" formControlName="{{i}}"
+                            name="{{field.id}}">                       
+                        </mat-form-field>
+                        <button mat-button  color="primary" (click)="executeMethod(methodSelected.id)" 
+                        >{{methodSelected.name}}</button>
+                    </form>                              
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+<div *ngFor="let todo of todos">
+    <mat-list>
+        <h3 mat-subheader>{{todo.name}} | {{todo.type}}</h3>
+        <mat-list-item>
+            <h4 mat-line>{{todo.comment}}</h4>
+        </mat-list-item>
+        <mat-list-item>
+            <p mat-line> {{todo.docs}} </p>
+        </mat-list-item>
+    </mat-list>
+    <mat-divider></mat-divider>
+</div>

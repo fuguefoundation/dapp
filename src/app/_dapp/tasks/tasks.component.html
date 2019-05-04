@@ -1,0 +1,253 @@
+<!-- <mat-card>
+    <mat-card-header>                
+        <mat-card-subtitle><h2>{{model.taskTitle}} {{model.taskDesc}}</h2></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <button mat-button  color="primary" (click)="setTaskSkill()">Set and Sign Task Skill</button>
+        <button mat-button  color="primary" (click)="setTaskDueDate()">Set and Sign Task Due Date</button>
+        <mat-divider></mat-divider><br>
+        <button mat-button  color="primary" (click)="setTaskManagerPayout()">Set and Sign Task Manager Payout</button>
+        <button mat-button  color="primary" (click)="setTaskEvaluatorPayout()">Set and Sign Task Evaluator Payout</button>
+        <button mat-button  color="primary" (click)="setTaskWorkerPayout()">Set and Sign Task Worker Payout</button>
+        <mat-divider></mat-divider><br>
+        <button mat-button  color="primary" (click)="removeTaskEvaluatorRole()">Remove and Sign Task Evaluator Role</button>
+        <button mat-button  color="primary" (click)="setTaskEvaluatorRole()">Set and Sign Task Evaluator Role</button>
+        <button mat-button  color="primary" (click)="_signSetTaskEvaluatorRole()">Sign Task Evaluator Role (as Evaluator)</button>
+        <button mat-button  color="primary" (click)="setTaskWorkerRole()">Set and Sign Task Worker Role</button>
+        <button mat-button  color="primary" (click)="_signSetTaskWorkerRole()">Sign Task Worker Role (as Worker)</button>
+        <mat-divider></mat-divider><br>
+        <button mat-button  color="primary" (click)="setTaskBrief()">Set and Sign Task Brief</button>
+        <button mat-button  color="primary" (click)="_signSetTaskBrief()">Sign Task Brief (as Worker)</button>
+        <button mat-button  color="primary" (click)="submitTaskDeliverable()">Submit Task Deliverable (as Worker)</button>
+        <button mat-button  color="primary" (click)="submitTaskWorkRating()">Submit Task Work Rating (Eval for Worker)</button>
+        <button mat-button  color="primary" (click)="_submitTaskWorkRating()">Submit Task Work Rating (Worker for Manager)</button>
+        <button mat-button  color="primary" (click)="revealTaskWorkRating()">Reveal Task Rating (Eval for Worker)</button>
+        <button mat-button  color="primary" (click)="_revealTaskWorkRating()">Reveal Task Rating (Worker for Manager)</button>
+        <mat-divider></mat-divider><br>
+        <button mat-button  color="primary" (click)="finalizeTask()">Finalize Task</button>
+        <mat-list>
+            <mat-list-item>Manager Payout: {{model.taskPayout.manager}}</mat-list-item>
+            <mat-list-item>Evaluator Payout: {{model.taskPayout.evaluator}}</mat-list-item>
+            <mat-list-item>Worker Payout: {{model.taskPayout.worker}}</mat-list-item>
+        </mat-list>
+        <mat-divider></mat-divider>    
+        <mat-list>
+            <mat-list-item>signSetTaskSkill: {{model.taskSign.signSetTaskSkill}}</mat-list-item>
+            <mat-list-item>signSetTaskDueDate: {{model.taskSign.signSetTaskDueDate}}</mat-list-item>
+            <mat-list-item>signRemoveTaskEvaluatorRole: {{model.taskSign.signRemoveTaskEvaluatorRole}}</mat-list-item>
+            <mat-list-item>signSetTaskEvaluatorRole: {{model.taskSign.signSetTaskEvaluatorRole}}</mat-list-item>
+            <mat-list-item>signSetTaskEvaluatorRole (as Evaluator): {{model.taskSign._signSetTaskEvaluatorRole}}</mat-list-item>
+            <mat-list-item>signSetTaskWorkerRole: {{model.taskSign.signSetTaskWorkerRole}}</mat-list-item>
+            <mat-list-item>signSetTaskWorkerRole (as Worker): {{model.taskSign._signSetTaskWorkerRole}}</mat-list-item>
+        </mat-list>
+        <mat-divider></mat-divider>
+        <mat-list>
+            <mat-list-item>Set Task Brief: {{model.taskSign.signSetTaskBrief | json}}</mat-list-item>
+            <mat-list-item>Set Task Brief (Worker): {{model.taskSign._signSetTaskBrief | json}}</mat-list-item>
+            <mat-list-item>Submit Task Deliverable: {{model.taskSubmit.submitTaskDeliverable | json}}</mat-list-item>
+            <mat-list-item>Submit Task Work Rating (as Evaluator for Worker): {{model.taskSubmit.submitTaskWorkRatingWorker | json}}</mat-list-item>
+            <mat-list-item>Submit Task Work Rating (as Worker for Manager): {{model.taskSubmit.submitTaskWorkRatingManager | json}}</mat-list-item>
+            <mat-list-item>Reveal Task Work Rating (for Worker from Evaluator): {{model.taskSubmit.revealTaskWorkRatingWorker | json}}</mat-list-item>
+            <mat-list-item>Reveal Task Work Rating (for Manager from Worker): {{model.taskSubmit.revealTaskWorkRatingManager | json}}</mat-list-item>
+        </mat-list>
+        <mat-divider></mat-divider>
+        <mat-list>
+            <mat-list-item>Finalize Task: {{model.taskSubmit.finalizeTask | json}}</mat-list-item>
+        </mat-list>
+    </mat-card-content>
+</mat-card> -->
+
+<div fxLayout="column" fxLayout.gt-sm="row wrap" class="p-2">
+    <div fxFlex="33.3" class="p-2"> 
+        <mat-card>          
+            <img mat-card-image [src]="goal.img" alt="image">
+            <mat-card-content>
+                <h3>{{goal.name}}</h3>
+                <p class="secondary-text-color mt-2">{{goal.desc}}</p>
+            </mat-card-content>
+            <mat-divider></mat-divider>
+            <mat-card-actions>
+                <mat-card-actions fxLayoutAlign="end center" class="secondary-text-color">                               
+                    <a mat-icon-button href="{{goal.link}}" title="{{goal.name}}" target="_blank"><mat-icon>launch</mat-icon></a>
+                </mat-card-actions>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+    <div fxFlex="33.3" class="p-2"> 
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>{{model.taskTitle}}</mat-card-title>
+                <mat-card-subtitle>{{model.taskDesc}}</mat-card-subtitle>
+            </mat-card-header>     
+            <mat-card-content>
+                <mat-list>
+                    <mat-list-item>Completion Date: {{model.task.completionDate}}</mat-list-item>
+                    <mat-list-item>Deliverable Hash: {{model.task.deliverableHash}}</mat-list-item>
+                    <mat-list-item>Domain ID: {{model.task.domainId}}</mat-list-item>
+                    <mat-list-item>Due Date: {{model.task.dueDate}}</mat-list-item>
+                    <mat-list-item>ID: {{model.task.id}}</mat-list-item>
+                    <mat-list-item>Payouts We Cannot Make: {{model.task.payoutsWeCannotMake}}</mat-list-item>
+                    <mat-list-item>Pot ID: {{model.task.potId}}</mat-list-item>
+                    <mat-list-item>Specification Hash: {{model.task.specificationHash}}</mat-list-item>
+                    <mat-list-item>Status: {{model.task.status}}</mat-list-item>
+                </mat-list>          
+            </mat-card-content>
+            <!-- <mat-divider></mat-divider>
+            <mat-card-actions>
+                <button mat-button>LIKE</button>
+                <button mat-button>SHARE</button>
+            </mat-card-actions> -->
+        </mat-card>
+    </div>
+    <div fxFlex="33.3" class="p-2">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>{{model.taskTitle}}</mat-card-title>
+                <mat-card-subtitle>{{model.taskDesc}}</mat-card-subtitle>
+            </mat-card-header>     
+            <mat-card-content>
+                <mat-list>
+                    <mat-list-item>MANAGER: <span *ngIf="model.taskRole.manager.address"> {{model.taskRole.manager.address}}</span></mat-list-item>
+                    <mat-list-item>EVALUATOR: <span *ngIf="model.taskRole.evaluator.address"> {{model.taskRole.evaluator.address}}</span></mat-list-item>
+                    <mat-list-item>WORKER: <span *ngIf="model.taskRole.worker.address"> {{model.taskRole.worker.address}}</span></mat-list-item>
+                </mat-list>          
+            </mat-card-content>
+            <!-- <mat-divider></mat-divider>
+            <mat-card-actions>
+                <button mat-button>LIKE</button>
+                <button mat-button>SHARE</button>
+            </mat-card-actions> -->
+        </mat-card>
+    </div>   
+</div>
+<!-- <mat-card>
+    <mat-card-header fxLayoutAlign="center">                
+        <mat-card-subtitle><h2>Create task</h2></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form fxLayout="column" fxLayoutAlign="center">
+            <mat-form-field>
+                <input matInput placeholder="Title" #taskTitle [formControl]="taskFormControl" [errorStateMatcher]="matcher">
+                <mat-error *ngIf="taskFormControl.hasError('required')">Value is <strong>required</strong></mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Description" #taskDesc [formControl]="taskFormControl" [errorStateMatcher]="matcher">
+                <mat-error *ngIf="taskFormControl.hasError('required')">Value is <strong>required</strong></mat-error>
+            </mat-form-field>
+            <button mat-button  color="primary" (click)="createTask(taskTitle.value, taskDesc.value)" 
+            [disabled]="!taskFormControl.valid">Create Task</button>
+        </form>                              
+    </mat-card-content>
+</mat-card> -->
+<!-- <mat-card>
+    <mat-card-header fxLayoutAlign="center">                
+        <mat-card-subtitle><h2>Get Task Role</h2></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form fxLayout="column" fxLayoutAlign="center">
+            <mat-form-field>
+                <input matInput placeholder="Task ID" #taskRoleId>
+            </mat-form-field>
+            <mat-select placeholder="Role" #taskRole>
+              <mat-option value="MANAGER">MANAGER</mat-option>
+              <mat-option value="EVALUATOR">EVALUATOR</mat-option>
+              <mat-option value="WORKER">WORKER</mat-option>
+            </mat-select>
+            <button mat-button  color="primary" (click)="getTaskRole(taskRoleId.value, taskRole.value)" >Get Role</button>
+        </form>                              
+    </mat-card-content>
+</mat-card>
+<mat-card>
+    <mat-card-header fxLayoutAlign="center">                
+        <mat-card-subtitle><h2>Get Task Role Payout</h2></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form fxLayout="column" fxLayoutAlign="center">
+            <mat-form-field>
+                <input matInput placeholder="Task ID" #taskPayoutId>
+            </mat-form-field>
+            <mat-select placeholder="Role" #taskPayoutRole>
+                <mat-option value="MANAGER">MANAGER</mat-option>
+                <mat-option value="EVALUATOR">EVALUATOR</mat-option>
+                <mat-option value="WORKER">WORKER</mat-option>
+            </mat-select>
+            <mat-form-field>
+                <input matInput placeholder="Token Address" #taskPayoutToken>
+            </mat-form-field>
+            <button mat-button  color="primary" (click)="getTaskPayout(taskPayoutId.value, taskPayoutRole.value, taskPayoutToken.value)" >Get Payout</button>
+        </form>                              
+    </mat-card-content>
+</mat-card> -->
+<!-- <mat-card>
+    <mat-card-header fxLayoutAlign="center">                
+        <mat-card-subtitle><h2>Get Task</h2></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form fxLayout="column" fxLayoutAlign="center">
+            <mat-form-field>
+                <input matInput placeholder="Task ID" #task>
+            </mat-form-field>
+            <button mat-button  color="primary" (click)="getTask(task.value)" >Get Task</button>
+        </form>                              
+    </mat-card-content>
+</mat-card> -->
+<!-- <mat-card>
+    <mat-card-header fxLayoutAlign="center">                
+        <mat-card-subtitle><h2>Set and Sign Task Brief</h2></mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <form fxLayout="column" fxLayoutAlign="center">
+            <mat-form-field>
+                <input matInput placeholder="Title" #taskBriefTitle>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Description" #taskBriefDesc>
+            </mat-form-field>
+            <button mat-button  color="primary" (click)="setTaskBrief(taskBriefTitle.value, taskBriefDesc.value)" 
+            >Set and Sign Task Brief</button>
+        </form>                              
+    </mat-card-content>
+</mat-card> -->
+<mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile [style.background]="'blue-dark'">
+        <mat-card class="column-card"> 
+            <mat-card-header fxLayoutAlign="center">                
+                <mat-card-subtitle><h2>Select Method</h2></mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <form fxLayout="column" fxLayoutAlign="center">
+                    <mat-select placeholder="Task Methods" #taskMethods (selectionChange)="onMethodSelected($event.value)">
+                        <mat-option *ngFor="let method of methods; let i=index" value="{{i}}">{{method.name}}</mat-option>
+                    </mat-select>
+                </form>
+                <div *ngIf="result">
+                    <mat-divider></mat-divider>
+                    <p>{{result | json}}</p>                
+                </div>                   
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile [style.background]="'blue-dark'">
+        <mat-card *ngIf="methodSelected" class="column-card">
+            <mat-card-header fxLayoutAlign="center">                
+                <mat-card-title>{{methodSelected.name}}</mat-card-title>
+                <mat-card-subtitle>{{methodSelected.docs}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <form fxLayout="column" fxLayoutAlign="center" [formGroup]="taskForm">
+                    <mat-form-field *ngFor="let field of methodSelected.field; let i=index">
+                        <input *ngIf="field.validation != 'role'" matInput placeholder="{{field.placeholder}}" formControlName="{{i}}"
+                        name="{{field.id}}">
+                        <mat-select *ngIf="field.validation == 'role'" placeholder="Select Role" formControlName="{{i}}">
+                            <mat-option value="MANAGER">MANAGER</mat-option>
+                            <mat-option value="EVALUATOR">EVALUATOR</mat-option>
+                            <mat-option value="WORKER">WORKER</mat-option>
+                        </mat-select>                        
+                    </mat-form-field>
+                    <button mat-button  color="primary" (click)="executeMethod(methodSelected.id)" 
+                    >{{methodSelected.name}}</button>
+                </form>                              
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>
